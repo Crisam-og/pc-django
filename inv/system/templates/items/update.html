@@ -1,0 +1,98 @@
+{% extends 'body.html' %} {% load crispy_forms_tags %} {% block content %}
+
+<form method="post">
+  <div class="card card-primary container-form">
+    <div class="card-header">
+      <h3 class="card-title">Registro de Items</h3>
+    </div>
+    <form>
+      <div class="card-body">{% csrf_token %} {{ form|crispy }}</div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-save"></i> Guardar
+        </button>
+        <a href="#" class="btn btn-secondary"
+          ><i class="fa fa-times"></i> Cancelar</a
+        >
+      </div>
+    </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var formSubmitted = false;
+  
+      $("#submit-btn").click(function (event) {
+        event.preventDefault();
+  
+        if (!formSubmitted) {
+          var confirmar = confirm("¿Quieres agregar otro item repetido?");
+  
+          if (confirmar) {
+            formSubmitted = true;
+            $("form").submit();
+          }
+        }
+      });
+  
+      $("a.btn-secondary").click(function (event) {
+        event.preventDefault();
+        window.location.href = $(this).attr("href");
+      });
+  
+      // Función para actualizar total_unidades_stock y total_item
+      function actualizarTotales() {
+        var stock_fisico = parseFloat($("#id_stock_fisico").val()) || 0;
+        var devoluciones_pendientes =
+          parseFloat($("#id_devoluciones_pendientes").val()) || 0;
+        var precio_costo = parseFloat($("#id_precio_costo").val()) || 0;
+  
+        var total_unidades_stock = stock_fisico + devoluciones_pendientes;
+        var total_item = total_unidades_stock * precio_costo;
+  
+        $("#id_total_unidades_stock").val(total_unidades_stock.toFixed(2));
+        $("#id_total_item").val(total_item.toFixed(2));
+      }
+  
+      // Actualizar totales cuando cambian los valores relevantes
+      $(
+        "#id_stock_fisico, #id_devoluciones_pendientes, #id_precio_costo"
+      ).change(function () {
+        actualizarTotales();
+      });
+  
+      // Al cambiar el valor de nro_item
+      $("#id_nro_item").on("input", function () {
+        var nro_item = $(this).val();
+        var inventario_id = $("#id_inventario_id").val(); // Ajusta según el ID real en tu formulario
+      
+        // Realizar la verificación asincrónica
+        $.ajax({
+          url: 'new/',  // Cambia la ruta a la vista donde realizas la verificación
+          method: 'POST',
+          data: {
+            'nro_item': nro_item,
+          },
+          success: function (response) {
+            // Manejar la respuesta, por ejemplo, mostrar un mensaje
+            if (response.duplicado) {
+              alert('Este número de item ya está registrado en el inventario.');
+            } else {
+              // Si no es duplicado, actualizar totales
+              actualizarTotales();
+            }
+          },
+          error: function () {
+            // Manejar el error si es necesario
+          }
+        });
+      });
+  
+      // Llamar a la función al cargar la página
+      actualizarTotales();
+    });
+  </script>
+  
+</form>
+  {% endblock %}
+

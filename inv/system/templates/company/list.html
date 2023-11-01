@@ -1,0 +1,27 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <tr class="text-center">
+        <th scope="col" style="width: 20%;">Nro. Documento</th>
+        <th scope="col" style="width: 20%;">Razon Social</th>
+        <th scope="col" style="width: 30%;">Direccion</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for e in empresas %}
+    <tr>
+        <td class="text-center"> {{ e.nro_documento }} </td>
+        <td class="text-center"> {{ e.razon_social }} </td>
+        <td class="text-center"> {{ e.direccion }} </td>
+
+        <td class="text-center">
+            <a href="{% url 'edit_company' e.empresa_Id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'delete_company' e.empresa_Id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+

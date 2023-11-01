@@ -1,0 +1,40 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 20%;">Codigo SKU</th>
+        <th scope="col" style="width: 20%;">Descripcion</th>
+        <th scope="col" style="width: 30%;">Unidad de medida</th>
+        <th scope="col" style="width: 30%;">Marca</th>
+        <th scope="col" style="width: 30%;">Grupo</th>
+        <th scope="col" style="width: 30%;">Linea</th>
+        <th scope="col" style="width: 30%;">Sublinea</th>
+        <th scope="col" style="width: 30%;">Empresa</th>
+        <th scope="col" style="width: 30%;">Factor Compra</th>
+        <th scope="col" style="width: 30%;">Factor Reparto</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for a in articulos %}
+    <tr>
+        <td> {{ a.codigo_sku }} </td>
+        <td> {{ a.descripcion }} </td>
+        <td> {{ a.unidad_medida_id }} </td>
+        <td> {{ a.marca_id }} </td>
+        <td> {{ a.grupo_id }} </td>
+        <td> {{ a.linea_id }} </td>
+        <td> {{ a.sublinea_id }} </td>
+        <td> {{ a.empresa_Id }} </td>
+        <td> {{ a.factor_compra }} </td>
+        <td> {{ a.factor_reparto }} </td>
+
+        <td>
+            <a href="{% url 'edit_articulos' a.articulo_id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'delete_articulos' a.articulo_id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}

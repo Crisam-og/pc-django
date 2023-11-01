@@ -1,0 +1,25 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 20%;">Nombre de la unidad</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for u in unidades %}
+    <tr>
+        <td> {{ u.unidad_nombre }} </td>
+
+        <td>
+            <a href="{% url 'edit_unidades' u.unidad_medida_id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'delete_unidades' u.unidad_medida_id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+{% endfor %}
+
+{% endblock %}
+
+
+

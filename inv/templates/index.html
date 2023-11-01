@@ -1,0 +1,63 @@
+{% extends 'body.html' %} 
+{% block content %}
+<div class="card mx-4 my-3">
+  <div class="card-body">{{ formatted_datetime }}</div>
+</div>
+<div class="row mx-4 my-3">
+  <div class="col-lg-3 col-6">
+    <div class="small-box bg-info">
+      <div class="inner">
+        <h3 id="num_users">{{num_users}}</h3>
+        <p id="username">Personal</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-person"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-6">
+    <div class="small-box bg-info">
+      <div class="inner">
+        <h3 id="num_users">{{num_empresas}}</h3>
+        <p id="username">Empresas</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-briefcase"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-6">
+    <div class="small-box bg-info">
+      <div class="inner">
+        <h3 id="num_users">{{num_prov}}</h3>
+        <p id="username">Proveedores</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-briefcase"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-6">
+    <div class="small-box bg-info">
+      <div class="inner">
+        <h3 id="num_users">{{sucursales}}</h3>
+        <p id="username">Sucursales</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-briefcase"></i>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-6">
+    <div class="small-box bg-info">
+      <div class="inner">
+        <h3 id="num_users">{{articulos}}</h3>
+        <p id="username">Articulos</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-briefcase"></i>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

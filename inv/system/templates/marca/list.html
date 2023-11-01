@@ -1,0 +1,24 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 20%;">Codigo de marca</th>
+        <th scope="col" style="width: 600%;">Nombre de marca</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for m in marcas %}
+    <tr>
+        <td> {{ m.codigo_marca }} </td>
+        <td> {{ m.marca_nombre }} </td>
+        <td>
+            <a href="{% url 'edit_marca' m.marca_id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'delete_marca' m.marca_id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+

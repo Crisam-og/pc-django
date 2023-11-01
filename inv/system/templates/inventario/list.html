@@ -1,0 +1,96 @@
+{% extends 'list.html' %}
+{% block modal %}
+<div class="modal fade" id="ListInvModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Articulos de Inventario</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                </div>
+                    <div class="table-responsive" style="padding-top: 10px;">
+                    <table class="table table-sm table-hover" id="productosTable">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Inventario</th>
+                            <th>Nro Item</th>
+                            <th>Articulo </th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-dark">
+                        {% for i in items %}
+                        <tr>
+                            <td>{{i.inventario_id.nro_inventario}}</td>
+                            <td>{{i.nro_item}}</td>
+                            <td>{{i.articulo_id}}</td>
+                            <td>{{i.total_unidades_stock}}</td>
+                            
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                    
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 20%;">Empresa</th>
+        <th scope="col" style="width: 20%;">Sucursal</th>
+        <th scope="col" style="width: 30%;">Responsable</th>
+        <th scope="col" style="width: 30%;">Fecha_inventario</th>
+        <th scope="col" style="width: 30%;">Nro_inventario</th>
+        <th scope="col" style="width: 30%;">Hora_inicio</th>
+        <th scope="col" style="width: 30%;">Hora_fin</th>
+        <th scope="col" style="width: 30%;">Total</th>
+        <th scope="col" style="width: 30%;">Estado</th>
+        <th scope="col" style="width: 30%;">Creado_por</th>
+        {% comment %} <th scope="col" style="width: 30%;">Fecha_creacion</th> {% endcomment %}
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for a in inventarios %}
+    <tr>
+        <td> {{ a.empresa_Id }} </td>
+        <td> {{ a.sucursal_id }} </td>
+        <td> {{ a.responsable }} </td>
+        <td> {{ a.fecha_inventario }} </td>
+        <td> {{ a.nro_inventario }} </td>
+        <td> {{ a.hora_inicio }} </td>
+        <td> {{ a.hora_fin }} </td>
+        <td> {{ a.total_inventario }} </td>
+        <td> {{ a.creado_por }} </td>   
+        <td>
+            {% if a.estado == 'pending' %}
+                <span class="badge badge-danger">Pending</span>
+            {% elif a.estado == 'in_progress' %}
+                <span class="badge badge-warning">In Progress</span>
+            {% elif a.estado == 'closed' %}
+                <span class="badge badge-success">Closed</span>
+            {% else %}
+                <span class="badge badge-secondary">{{ a.estado }}</span>
+            {% endif %}
+        </td>
+        <td>
+            <a href="{% url 'inventarios_list' a.inventario_id %}" data-toggle="modal" data-target="#ListInvModal" data-backdrop="static" data-keyboard="false" class="btn btn-warning btn-xs btn-view"><i class="fas fa-eye"></i></a>
+            <a href="{% url 'edit_inventario' a.inventario_id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'delete_inventario' a.inventario_id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}

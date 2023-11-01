@@ -1,0 +1,29 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 20%;">Codigo de Línea</th>
+        <th scope="col" style="width: 20%;">Descripción de Línea</th>
+        <th scope="col" style="width: 30%;">Grupo</th>
+        <th scope="col" style="width: 30%;">Activo</th>
+        <th scope="col" style="width: 30%;">Responsable de Línea</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for l in lineas %}
+    <tr>
+        <td> {{ l.codigo_linea }} </td>
+        <td> {{ l.linea_descripcion }} </td>
+        <td> {{ l.grupo_id.responsable_grupo }} </td>
+        <td> {{ l.activo }} </td>
+        <td> {{ l.responsable_linea.username }} </td>
+        <td>
+            <a href="{% url 'edit_linea' l.linea_id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'delete_linea' l.linea_id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}

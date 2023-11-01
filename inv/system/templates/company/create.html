@@ -1,0 +1,26 @@
+{% extends 'body.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<form method="post">
+
+    <div class="card card-primary" style="padding-top: 30px;">
+        <div class="card-header">
+        <h3 class="card-title">Registro de Empresa</h3>
+        </div>
+           
+        <form>
+        <div class="card-body">
+        
+            {% csrf_token %}
+            {{ form|crispy }}
+        
+        </div>
+        <div class="card-footer">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+        <a href="{% url 'company_list' %}" class="btn btn-danger"><i class="fas fa-window-close"></i> Cancelar</a>
+        </div>
+    </form>
+    </div>
+
+{% endblock %}

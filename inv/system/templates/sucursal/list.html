@@ -1,0 +1,26 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <tr class="text-center">
+        <th scope="col" style="width: 20%;">Empresa</th>
+        <th scope="col" style="width: 20%;">Nombre Sucursal</th>
+        <th scope="col" style="width: 30%;">Direccion</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for s in sucursales %}
+    <tr>
+        <td class="text-center"> {{ s.empresa_Id.nro_documento }} </td>
+        <td class="text-center"> {{ s.nombre_comercial }} </td>
+        <td class="text-center"> {{ s.direccion }} </td>
+
+        <td class="text-center">
+            <a href="{% url 'edit_sucursal' s.sucursal_id %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'delete_sucursal' s.sucursal_id %}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+
+        </td>
+    </tr>
+    {% endfor %}
+{% endblock %}

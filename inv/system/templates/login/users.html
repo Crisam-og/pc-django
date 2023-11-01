@@ -1,0 +1,22 @@
+{% extends 'list.html' %}
+
+{% block columns %}
+    <tr>
+        <th scope="col" style="width: 10%;">Nom Usuario</th>
+        <th scope="col" style="width: 50%;">Email</th>
+        <th scope="col" style="width: 20%;">Opciones</th>
+    </tr>
+{% endblock %}
+
+{% block rows %}
+{% for u in users %}
+    <tr>
+        <td> {{ u.username }} </td>
+        <td> {{ u.email }} </td>
+        {% comment %} <td>
+            <a href="{% url 'edit_user' u.username %}" class="btn btn-warning btn-xs"><i class="fas fa-edit"></i></a>
+            <a href="{% url 'delete_user' u.username %}"type="button" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+        </td> {% endcomment %}
+    </tr>
+    {% endfor %}
+{% endblock %}
